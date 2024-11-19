@@ -1,0 +1,149 @@
+classDiagram
+    class Plane {
+        +float realAtt
+        +float speed
+        +int hp
+        +Weapon weapon
+        #string bombStr
+        +int maxHp
+        #int exp
+        #int expLevel
+        #int planeLevel
+        #float kLevel
+        +Transform firePoint
+        +void Start()
+        +void Init()
+        +void Ctrl()
+        +void Update()
+        +void Fire()
+        +void Hurt(Plane plane, float f)
+        +void MyPlaneHurt()
+        +void PlaneDeath(Plane plane)
+        +GameObject GetLeftTool(string n)
+    }
+    class Player {
+        +float att
+        +int bombAtt
+        -int bombNum
+        -Vector3 bombPos
+        -Weapon weapon
+        +protected void SkillBomb()
+        +public void AddBomb(int n)
+        +protected void LoadPlaneUp()
+        +public override void Fire()
+        +public void Calculation()
+        +protected void UpdateValue()
+        +public void WeapnLevelUp(ToolType type)
+        +public void ClearPoint()
+    }
+    class PlaneBlue {
+        -float att
+        -float speed
+        -int maxHp
+        -float kLevel
+        -float bombAtt
+        -string bombStr
+        -Vector3 bombPos
+        -Weapon weapon
+        +protected override void Init()
+        +void Calculation()
+    }
+    class PlanePink {
+        -float att
+        -float bombAtt
+        -float speed
+        -int maxHp
+        -float kLevel
+        -string bombStr
+        -Weapon weapon
+        +protected override void Init()
+        +void Calculation()
+    }
+    class PlaneRed {
+        -float att
+        -float bombAtt
+        -float speed
+        -int maxHp
+        -float kLevel
+        -string bombStr
+        -Vector3 bombPos
+        -Weapon weapon
+        +protected override void Init()
+        +void Calculation()
+    }
+    class PlaneYellow {
+        -float att
+        -float bombAtt
+        -float speed
+        -int maxHp
+        -float kLevel
+        -string bombStr
+        -Weapon weapon
+        +protected override void Init()
+        +void Calculation()
+    }
+    class Weapon {
+        +ToolType type
+        -GameObject bulletPrefab
+        -int level
+        +int Level
+        -FireGun gun
+        -Transform firePos
+        -string clip
+        -float time
+        +float att
+        -float timeCd
+        +Plane plane
+        +Weapon(Plane _plane)
+        +protected virtual void Init()
+        +public virtual void WeaponLevel()
+        +static Weapon GetWeaponFire(Player _plane)
+        +static Weapon GetWeaponThunder(Player _plane)
+        +static Weapon GetWeaponHeart(Player _plane)
+        +static Weapon GetWeaponShoot(Player _plane)
+        +public static void SetMyWeapon()
+        +public virtual void FireGunLevel()
+        +public virtual void SetInit(params object[] obj)
+        +public void Fire()
+    }
+    class WeaponThunder {
+        -GameObject missilePrefab
+        +WeaponThunder(Plane _plane)
+        +protected override void Init()
+        +void ThunderFire(GameObject prefab, int n, Vector3 v)
+        +public override void FireGunLevel()
+    }
+    class WeaponHeart {
+        +WeaponHeart(Player _plane)
+        +protected override void Init()
+        +public override void FireGunLevel()
+        +public override void WeaponLevel()
+    }
+    class WeaponShoot {
+        -List<Transform> guards
+        -int guardNum
+        -float width
+        -float startAtt
+        +WeaponShoot(Plane _plane)
+        +protected override void Init()
+        +public override void WeaponLevel()
+        +public override void FireGunLevel()
+    }
+    class WeaponFire {
+        +WeaponFire(Plane _plane)
+        +protected override void Init()
+    }
+
+    Plane <|-- Player
+    Player <|-- PlaneBlue
+    Player <|-- PlanePink
+    Player <|-- PlaneRed
+    Player <|-- PlaneYellow
+    Weapon <|-- WeaponThunder
+    Weapon <|-- WeaponHeart
+    Weapon <|-- WeaponShoot
+    Weapon <|-- WeaponFire
+    PlaneBlue *-- WeaponThunder : uses
+    PlanePink *-- WeaponHeart : uses
+    PlaneRed *-- WeaponShoot : uses
+    PlaneYellow *-- WeaponFire : uses
